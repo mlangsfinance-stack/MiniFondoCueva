@@ -25,9 +25,10 @@ git.
 2. Busca el botón verde que dice **Code**, arriba a la derecha de la lista de archivos.
 3. Púlsalo. Se abre un menú pequeño.
 4. Abajo del menú, pulsa **Download ZIP**. Empieza la descarga.
-5. Ve a tu carpeta de Descargas y busca `MiniFondoCueva-main.zip`.
+5. Ve a tu carpeta de Descargas y busca el archivo que empieza por `MiniFondoCueva` y termina
+   en `.zip`.
 6. Clic derecho sobre él → **Extraer todo** (en Mac, doble clic).
-7. Te queda una carpeta llamada `MiniFondoCueva-main`. Muévela a un sitio que encuentres fácil: el
+7. Te queda una carpeta con ese mismo nombre. Muévela a un sitio que encuentres fácil: el
    Escritorio sirve.
 
 Abre esa carpeta. Deberías ver archivos con nombres como `EMPEZAR.bat`, `README.md` y carpetas como
