@@ -1,0 +1,16 @@
+{
+  "id": "001",
+  "nombre": "kaufman_breakout_er",
+  "carpeta": "001_kaufman_breakout_er",
+  "fase": "archivada",
+  "vuelta_motor": 1,
+  "creada": "2026-09-15 17:10",
+  "historial": [
+    {"fecha": "2026-09-15 17:20", "fase": "investigacion", "veredicto": "NO_EDGE", "sesion": null, "coste_usd": null},
+    {"fecha": "2026-09-15 17:22", "fase": "puerta_hipotesis", "veredicto": "OK_MARIEL", "sesion": null, "coste_usd": null},
+    {"fecha": "2026-09-15 17:30", "fase": "protocolo", "veredicto": "OK", "sesion": null, "coste_usd": null},
+    {"fecha": "2026-09-15 17:45", "fase": "motor", "veredicto": "OK", "sesion": null, "coste_usd": null},
+    {"fecha": "2026-09-15 17:48", "fase": "validacion", "veredicto": "RECHAZADA", "sesion": null, "coste_usd": null},
+    {"fecha": "2026-09-16 09:00", "fase": "validacion", "veredicto": "ARCHIVADA_MARIEL", "sesion": null, "coste_usd": null}
+  ]
+}
