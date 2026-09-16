@@ -3,3 +3,6 @@ pandas>=2.0
 pyarrow>=14
 pytest>=7
 claude-agent-sdk>=0.2
+streamlit>=1.30
+plotly>=5
+matplotlib>=3.7

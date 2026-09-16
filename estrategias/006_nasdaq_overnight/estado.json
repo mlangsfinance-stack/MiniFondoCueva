@@ -1,0 +1,19 @@
+{
+  "id": "006",
+  "nombre": "nasdaq_overnight",
+  "carpeta": "006_nasdaq_overnight",
+  "fase": "archivada",
+  "vuelta_motor": 0,
+  "creada": "2026-09-15 17:44",
+  "historial": [
+    {
+      "fecha": "2026-09-15 17:47",
+      "fase": "investigacion",
+      "veredicto": "NO_EDGE",
+      "sesion": "fa3d0c5b-f81c-4b88-9620-44637f192a92",
+      "coste_usd": 0.8644640000000001,
+      "duracion_s": 173.664,
+      "turnos": 12
+    }
+  ]
+}

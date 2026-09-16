@@ -1,0 +1,28 @@
+{
+  "id": "007",
+  "nombre": "oro_nasdaq",
+  "carpeta": "007_oro_nasdaq",
+  "fase": "archivada",
+  "vuelta_motor": 0,
+  "creada": "2026-09-15 17:32",
+  "historial": [
+    {
+      "fecha": "2026-09-15 17:44",
+      "fase": "eficiencia",
+      "veredicto": "BLOQUEADO",
+      "sesion": "1f484558-530d-4019-aa0a-ed454f6018a3",
+      "coste_usd": 0.21488519999999994,
+      "duracion_s": 26.652,
+      "turnos": 8
+    },
+    {
+      "fecha": "2026-09-15 17:51",
+      "fase": "investigacion",
+      "veredicto": "NO_EDGE",
+      "sesion": "90706e31-db6a-44f7-946b-550f0c314da9",
+      "coste_usd": 0.2679325,
+      "duracion_s": 33.644,
+      "turnos": 6
+    }
+  ]
+}

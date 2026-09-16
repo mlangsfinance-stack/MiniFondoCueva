@@ -1,0 +1,24 @@
+
+=== investigador ===
+AED de la 002 terminado. Entregables:
+
+- `codigo/exploratorio_005.py` — 11 bloques de medición cruda sobre IS (< 2021-01-01), rejilla de 29 pares rápida/lenta, ejecutado con el venv.
+- `estrategias/005_nasdaq_sma_cross/informe_aed.md` — tablas, pruebas de muerte, lectura.
+
+**Lo esencial que sale de los datos (NDX D1, 2009-2020):**
+
+- El spread "arriba − abajo" es **negativo en 29 de 29 pares** (mediana −10.6 bp/día, t mediano −1.44). "Abajo" nunca tiene retorno medio negativo; de hecho es el estado con **mejores** días (rebotes en V tras las correcciones).
+- Filtro vs largo siempre, mismo periodo: el filtro acumula menos **y** tiene peor Sharpe en 29/29 pares. Captura simétrica (se come el 85 % de los días negativos y el 82 % de los positivos); está dentro en 17 de los 20 peores días.
+- Por año: spread positivo solo en 2012 y 2018 (50/200); en toda la rejilla, solo 2018 tiene mayoría de pares favorables.
+- Jackknife: ningún año cambia el signo. Quitar 2008-09 y 2020 deja el spread en −9 bp.
+- Placebo (2 000 rotaciones circulares de la señal): una señal aleatoria con la misma exposición lo hace mejor el 94-99 % de las veces. El cruce elige sistemáticamente peor que el azar.
+- Con un solo parámetro (precio > SMA lenta) el cuadro es idéntico. Los costes (13 bp/operación, 0.6-3.8 cruces/año) no son el problema.
+
+Una advertencia metodológica que corregí durante el trabajo: si el calentamiento de la SMA lenta (todo 2008) se cuenta como "abajo" o como "fuera", el filtro parece proteger del crash y gana en Sharpe en 2/3 de los pares. Es un artefacto — se le regala estar fuera antes de que existiera la señal. Con el mismo periodo para ambos, la ventaja desaparece por completo.
+
+Mi lectura: la deriva alcista del Nasdaq existe y es fuerte, pero se la lleva entera quien está siempre largo; el cruce de medias no la amplifica, la recorta, y sale precisamente cuando empieza el rebote. Las dos condiciones que la propia hipótesis fijó como mortales (que sea solo deriva; que dependa de 1-2 años) se cumplen ambas. No es un resultado ambiguo: el signo es el contrario al predicho en todas las combinaciones, años y regímenes de vol. Si Mariel quiere insistir en tendencia sobre NDX, la premisa a reescribir sería otra (largo permanente con sizing por volatilidad, o cruces mucho más lentos con objetivo de drawdown, no de retorno), no esta.
+
+VEREDICTO: NO_EDGE
+[investigacion] NO_EDGE -> archivada
+
+# 005 -> archivada

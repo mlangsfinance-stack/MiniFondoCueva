@@ -4,6 +4,9 @@
          |NO_EDGE                |no                                  |RECHAZADA (<=3 vueltas) -> motor       |no
          v                       v                                    |RECHAZADA (4a vez)      -> archivada   v
       archivada              archivada                                                                    archivada
+
+Después de cada fase de agente corre `eficiencia` (transversal): no mueve la fase, deja eficiencia.md
+en la carpeta con bloqueos y notas para el siguiente agente.
 """
 import re
 
@@ -45,7 +48,7 @@ async def ejecutar(nombre_agente: str, tarea: str) -> dict:
     )
     print(f"\n=== {nombre_agente} ===")
     ultimo_texto = ""
-    sesion = coste = None
+    sesion = coste = duracion_s = turnos = None
     async for msg in query(prompt=tarea, options=opts):
         if isinstance(msg, AssistantMessage):
             for b in msg.content:
@@ -54,16 +57,21 @@ async def ejecutar(nombre_agente: str, tarea: str) -> dict:
                     ultimo_texto = b.text
         elif isinstance(msg, ResultMessage):
             sesion, coste = msg.session_id, msg.total_cost_usd
+            duracion_s, turnos = msg.duration_ms / 1000, msg.num_turns
             if msg.is_error:
                 print(f"[error del agente] {msg.result}")
     m = re.search(r"VEREDICTO:\s*([A-Z_]+)", ultimo_texto)
-    return {"veredicto": m.group(1) if m else "SIN_VEREDICTO", "sesion": sesion, "coste": coste}
+    return {"veredicto": m.group(1) if m else "SIN_VEREDICTO", "sesion": sesion, "coste": coste,
+            "duracion_s": duracion_s, "turnos": turnos}
 
 
 # ---------- tareas por fase ----------
 
 def _ctx(estado: dict) -> str:
-    return f"Estrategia {estado['id']} «{estado['nombre']}». Carpeta: estrategias/{estado['carpeta']}/."
+    ctx = f"Estrategia {estado['id']} «{estado['nombre']}». Carpeta: estrategias/{estado['carpeta']}/."
+    if (E.ESTRATEGIAS / estado["carpeta"] / "eficiencia.md").exists():
+        ctx += " Antes de empezar lee eficiencia.md en la carpeta: son notas del agente de eficiencia para ti."
+    return ctx
 
 
 def tarea_investigacion(estado: dict) -> str:
@@ -95,7 +103,28 @@ def tarea_validacion(estado: dict) -> str:
             f"razonado y, si aprueba, checklist_deploy.md. Termina con VEREDICTO: APROBADA o VEREDICTO: RECHAZADA.")
 
 
+def tarea_eficiencia(estado: dict, fase: str | None = None, resultado: dict | None = None) -> str:
+    base = f"Estrategia {estado['id']} «{estado['nombre']}». Carpeta: estrategias/{estado['carpeta']}/."
+    if fase and resultado:
+        que = (f" Acaba de terminar la fase «{fase}» con veredicto {resultado['veredicto']}"
+               f" (coste ${resultado['coste'] or 0:.2f}, {(resultado['duracion_s'] or 0) / 60:.1f} min,"
+               f" {resultado['turnos'] or 0} turnos). La estrategia pasa a «{estado['fase']}».")
+    else:
+        que = f" La estrategia está en «{estado['fase']}»; revisión a petición de Mariel."
+    return (f"{base}{que} Revisa estado.json, bitacora.md y los entregables, y escribe eficiencia.md en la carpeta "
+            f"con bloqueos, despilfarro y notas para el siguiente agente. "
+            f"Termina con VEREDICTO: FLUIDO, AVISO o BLOQUEADO.")
+
+
 # ---------- transiciones ----------
+
+async def revisar_eficiencia(estado: dict, fase: str | None = None, resultado: dict | None = None) -> dict:
+    """Corre el agente de eficiencia sobre la estrategia y lo anota. No mueve la fase."""
+    r = await ejecutar("eficiencia", tarea_eficiencia(estado, fase, resultado))
+    E.anotar(estado, "eficiencia", r["veredicto"], r["sesion"], r["coste"], r["duracion_s"], r["turnos"])
+    E.guardar(estado)
+    print(f"[eficiencia] {r['veredicto']} -> estrategias/{estado['carpeta']}/eficiencia.md")
+    return estado
 
 async def avanzar(estado: dict) -> dict:
     """Ejecuta UNA fase de agente y mueve el estado. Devuelve el estado actualizado."""
@@ -122,7 +151,7 @@ async def avanzar(estado: dict) -> dict:
         else:
             siguiente = None
 
-    E.anotar(estado, fase, r["veredicto"], r["sesion"], r["coste"])
+    E.anotar(estado, fase, r["veredicto"], r["sesion"], r["coste"], r["duracion_s"], r["turnos"])
     if siguiente is None:
         # Veredicto inesperado: no avanzamos; queda en la misma fase para que Mariel mire la bitácora.
         print(f"[{fase}] veredicto {r['veredicto']!r} no reconocido; la estrategia se queda en {fase}.")
@@ -130,6 +159,9 @@ async def avanzar(estado: dict) -> dict:
         estado["fase"] = siguiente
         print(f"[{fase}] {r['veredicto']} -> {siguiente}")
     E.guardar(estado)
+    # Eficiencia mira lo que acaba de pasar y deja notas al siguiente. No hace falta si ya no hay siguiente.
+    if E.EFICIENCIA_ACTIVA and estado["fase"] not in E.FASES_FINALES:
+        estado = await revisar_eficiencia(estado, fase, r)
     return estado
 
 

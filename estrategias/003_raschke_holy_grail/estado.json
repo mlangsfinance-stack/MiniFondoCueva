@@ -1,0 +1,45 @@
+{
+  "id": "003",
+  "nombre": "raschke_holy_grail",
+  "carpeta": "003_raschke_holy_grail",
+  "fase": "archivada",
+  "vuelta_motor": 1,
+  "creada": "2026-09-15 17:10",
+  "historial": [
+    {
+      "fecha": "2026-09-15 17:30",
+      "fase": "investigacion",
+      "veredicto": "NO_EDGE",
+      "sesion": null,
+      "coste_usd": null
+    },
+    {
+      "fecha": "2026-09-15 17:32",
+      "fase": "puerta_hipotesis",
+      "veredicto": "OK_MARIEL",
+      "sesion": null,
+      "coste_usd": null
+    },
+    {
+      "fecha": "2026-09-15 17:40",
+      "fase": "motor",
+      "veredicto": "OK",
+      "sesion": null,
+      "coste_usd": null
+    },
+    {
+      "fecha": "2026-09-15 17:48",
+      "fase": "validacion",
+      "veredicto": "RECHAZADA",
+      "sesion": null,
+      "coste_usd": null
+    },
+    {
+      "fecha": "2026-09-16 09:00",
+      "fase": "validacion",
+      "veredicto": "ARCHIVADA_MARIEL",
+      "sesion": null,
+      "coste_usd": null
+    }
+  ]
+}

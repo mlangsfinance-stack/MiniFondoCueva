@@ -1,0 +1,23 @@
+
+=== investigador ===
+AED de la 003 terminado. Entregables:
+
+- `estrategias/006_nasdaq_overnight/informe_aed.md`
+- `codigo/exploratorio_006.py` (ejecutado con el venv, solo IS < 2021-01-01)
+
+**Lo que sale, en corto:**
+
+1. **La vela D1 del CFD no contiene el overnight del Nasdaq.** La mediana del gap `close[t] → open[t+1]` es 1 punto frente a 46 de rango de la vela; el "overnight" pesa el 9 % de la varianza diaria. El CFD cotiza ~24 h y el open/close de la vela son los ticks alrededor de la medianoche del servidor, no las subastas de 9:30/16:00 ET. El overnight real queda dentro de lo que la hipótesis llama "intradía".
+
+2. **Medido tal y como pide la hipótesis, el efecto va al revés:** overnight −0.0275 %/día (t = −3.9, 35 % de noches positivas, suma IS −92 %) frente a intradía +0.094 %/día (t = +4.2, suma +317 %). Overnight > intradía en 1 de 13 años.
+
+3. **Costes:** gap medio −1.28 pts bruto, −6.3 pts neto de los 5 pts RT (t = −25). Ningún año, ventana de 2 años, régimen, día de semana o filtro simple lo pone en positivo neto. La condición de muerte que fija la propia hipótesis se cumple con margen.
+
+4. **El gap es un artefacto de rollover:** en 2016-2017-2019 es negativo el 78-90 % de las noches con valores repetidos (−3.0, −3.5, −6.0 pts); en 2009 es exactamente 0 el 83 % de las veces. Eso es construcción de vela del bróker, no mercado.
+
+Si quiere probarse el efecto overnight de verdad, hacen falta velas intradía (M15/H1) para marcar 16:00 y 9:30 ET; con `NDX_D1.csv` no hay forma de medirlo y la estrategia no tiene base.
+
+VEREDICTO: NO_EDGE
+[investigacion] NO_EDGE -> archivada
+
+# 006 -> archivada

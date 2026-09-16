@@ -17,11 +17,14 @@ OOS de 5.7. Si quieres entender por qué eso es lo correcto, este repo es para t
 | `.claude/agents/protocolo.md` | Paso 03. Convierte la hipótesis en reglas blanco o negro. |
 | `.claude/agents/motor.md` | Pasos 04-07. Implementa, backtest IS/OOS, optimiza por meseta, robustez, sizing. |
 | `.claude/agents/validador.md` | Cierre. Rehace los números, no se fía del motor. APROBADA o RECHAZADA. |
-| `harness/` | Encadena los 4 agentes y se para en las dos puertas que solo cierra una persona. |
+| `.claude/agents/eficiencia.md` | Transversal. Vigila a los otros cuatro: bloqueos, trabajo repetido, coste. Deja notas al siguiente. |
+| `harness/` | Encadena los agentes y se para en las dos puertas que solo cierra una persona. `dashboard.py`: panel Streamlit. |
 | `codigo/quantlab/` | El motor: ejecución realista, costes, métricas y las 5 fases de validación. |
 | `codigo/validar.py` | Valida cualquier estrategia del repo sobre tus datos con un comando. |
 | `docs/PROTOCOLO.md` | Los 8 pasos y los criterios numéricos. Solo los cambia la persona. |
-| `estrategias/001_kaufman_breakout_er/` | El ejemplo: hipótesis, AED, reglas, informes, veredicto y bitácora. |
+| `estrategias/001_kaufman_breakout_er/` | El ejemplo completo: hipótesis, AED, reglas, informes, veredicto y bitácora. |
+| `estrategias/REGISTRO.md` | Las 7 primeras pruebas (Kaufman ×2, Raschke ×2, 3 del repo), todas descartadas y todas con motivo. |
+| `docs/laboratorio/` | El proceso 0→100 escrito: filosofía (Simons · Kaufman · Raschke), hipótesis, validación, métricas, antipatrones. |
 
 ## Los 8 pasos
 
@@ -59,10 +62,12 @@ python -m harness.run nueva 002 mi_idea      # crea la carpeta y la ficha de hip
 python -m harness.run run 002                # investigador → se para en tu puerta
 python -m harness.run ok 002                 # protocolo → motor → validador → se para en deploy
 python -m harness.run status
+python -m harness.run eficiencia 002        # revisión de eficiencia a petición
+streamlit run harness/dashboard.py          # panel
 ```
 
 Desde una sesión de Claude Code también puedes llamarlos a mano: `@investigador`, `@protocolo`,
-`@motor`, `@validador`.
+`@motor`, `@validador`, `@eficiencia`.
 
 ## El ejemplo: Kaufman sobre el Nasdaq
 
@@ -93,16 +98,33 @@ la misma regla sobre más índices, como hipótesis nueva. Está escrito en
 4. Cada agente escribe solo en sus carpetas. El validador no arregla: señala.
 5. Los pasos verdes no los decide ningún agente.
 
+## Las 7 primeras pruebas
+
+| ID | Estrategia | Resultado | Muere en |
+|---|---|---|---|
+| 001 | Kaufman · breakout 40/20 + ER | PF OOS 5.70, 24 trades | muestra OOS < 30 |
+| 002 | Kaufman · reversión 2 días | PF OOS 1.35 / 1.23 (CFD) | CFD, meseta, stress |
+| 003 | Raschke · Holy Grail | PF OOS 1.05 / 0.56 | todo |
+| 004 | Raschke · 80-20 | PF OOS 1.15 | todo |
+| 005 | cruce de medias NDX | AED: peor que la base | investigación |
+| 006 | overnight NDX (velas D1) | AED: −6 pts/noche | investigación |
+| 007 | oro / nasdaq | sin hipótesis | bloqueada |
+
+Siete de siete descartadas, cada una con su motivo en `estrategias/REGISTRO.md`. Eso no es un
+fracaso del método: es el método. Un umbral que solo rechaza lo que tú quieres rechazar no sirve.
+
 ## Estructura
 
 ```
-.claude/agents/     los 4 agentes (system prompt del harness y subagentes de Claude Code)
-harness/            run.py (CLI) · grafo.py (fases y veredictos) · estado.py
-docs/               PROTOCOLO.md · PLANTILLA_HIPOTESIS.md
+.claude/agents/     los 4 agentes + eficiencia (system prompt del harness y subagentes de Claude Code)
+harness/            run.py (CLI) · grafo.py (fases y veredictos) · estado.py · dashboard.py
+docs/               PROTOCOLO.md · PLANTILLA_HIPOTESIS.md · laboratorio/ (el proceso 0→100)
 codigo/quantlab/    motor de backtest, métricas, validación, informe
 codigo/estrategias/ una señal por estrategia (≤30 líneas + PLAN)
 codigo/validar.py   las 5 fases sobre tus datos
-estrategias/<ID>/   hipótesis, informes, reglas, estado.json, bitácora
+codigo/scripts/     tendencia · prototipo · validar · charts (laboratorio)
+codigo/app/         AED interactivo del NDX (Streamlit)
+estrategias/<ID>/   hipótesis, informes, reglas, estado.json, bitácora · REGISTRO.md
 reportes/<ID>/      RESUMEN.md, meseta.csv, walk_forward.csv, trades_oos.csv
 data/               tus velas (no se versionan)
 tests/              humo + placebo

@@ -13,6 +13,10 @@ FASES_FINALES = {"incubacion", "archivada"}
 
 MAX_VUELTAS_MOTOR = 3  # validación rechazada → vuelve al motor, como mucho 3 veces
 
+# El agente de eficiencia corre después de cada fase de agente y deja eficiencia.md para el siguiente.
+# Se apaga con --sin-eficiencia en la CLI.
+EFICIENCIA_ACTIVA = True
+
 
 def ahora() -> str:
     return dt.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -63,13 +67,19 @@ def listar() -> list[dict]:
     return out
 
 
-def anotar(estado: dict, fase: str, veredicto: str, sesion: str | None = None, coste: float | None = None) -> None:
+def anotar(estado: dict, fase: str, veredicto: str, sesion: str | None = None, coste: float | None = None,
+           duracion_s: float | None = None, turnos: int | None = None) -> None:
     """Deja rastro en estado.json y en la bitácora humana."""
-    entrada = {"fecha": ahora(), "fase": fase, "veredicto": veredicto, "sesion": sesion, "coste_usd": coste}
+    entrada = {"fecha": ahora(), "fase": fase, "veredicto": veredicto, "sesion": sesion, "coste_usd": coste,
+               "duracion_s": duracion_s, "turnos": turnos}
     estado["historial"].append(entrada)
     linea = f"- {entrada['fecha']} · **{fase}** → {veredicto}"
     if coste is not None:
         linea += f" · ${coste:.2f}"
+    if duracion_s is not None:
+        linea += f" · {duracion_s / 60:.1f} min"
+    if turnos is not None:
+        linea += f" · {turnos} turnos"
     if sesion:
         linea += f" · sesión `{sesion}`"
     with (ESTRATEGIAS / estado["carpeta"] / "bitacora.md").open("a", encoding="utf-8") as f:

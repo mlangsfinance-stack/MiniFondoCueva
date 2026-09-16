@@ -1,0 +1,19 @@
+{
+  "id": "005",
+  "nombre": "nasdaq_sma_cross",
+  "carpeta": "005_nasdaq_sma_cross",
+  "fase": "archivada",
+  "vuelta_motor": 0,
+  "creada": "2026-09-15 17:44",
+  "historial": [
+    {
+      "fecha": "2026-09-15 17:49",
+      "fase": "investigacion",
+      "veredicto": "NO_EDGE",
+      "sesion": "a15eeb1f-d2f8-4c9f-9358-c9a8149f2f7d",
+      "coste_usd": 1.4840870000000004,
+      "duracion_s": 275.492,
+      "turnos": 19
+    }
+  ]
+}

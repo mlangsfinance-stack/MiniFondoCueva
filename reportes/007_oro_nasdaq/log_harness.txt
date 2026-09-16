@@ -1,0 +1,9 @@
+
+=== investigador ===
+Empiezo leyendo las notas de eficiencia, la hipótesis y el protocolo.
+No he podido hacer el AED: `hipotesis.md` es la plantilla vacía, sin comportamiento a explotar, sin razón estructural, sin activo declarado, sin fecha de corte IS/OOS ni zona horaria. La regla 1 del investigador es clara en ese caso: parar sin inventar la premisa, porque el paso 01 es de Mariel. Sí hay una novedad respecto a las notas de eficiencia: `data/NDX_D1.csv` (Nasdaq-100 diario) ya está en el repo, pero no hay dato de oro ni intradía, así que según cómo se escriba la hipótesis puede seguir faltando el dato. He dejado `informe_aed.md` con esto documentado y con la lista exacta de lo que necesita el siguiente turno; no hay `exploratorio_007.py` porque no hay nada que explorar. Esto no es un juicio sobre la idea "oro-nasdaq": es que la idea todavía no está escrita. En cuanto se rellene la hipótesis (y se suba XAUUSD si aplica), se reabre y se hace el AED completo.
+
+VEREDICTO: NO_EDGE
+[investigacion] NO_EDGE -> archivada
+
+# 007 -> archivada

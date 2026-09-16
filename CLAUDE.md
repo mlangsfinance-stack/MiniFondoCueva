@@ -5,13 +5,18 @@ Repo de **desarrollo y validación de estrategias de trading con el método TIS*
 Es el lead magnet de Trade It Simple: el que lo reciba tiene que poder clonarlo, correr el
 ejemplo y meter su propia hipótesis sin preguntar nada. Escribe para esa persona.
 
-## Los 4 agentes (`.claude/agents/`)
+## Los agentes (`.claude/agents/`)
 | Agente | Pasos TIS | Entra | Sale | Veredicto |
 |---|---|---|---|---|
 | `investigador` | 01-02 | `hipotesis.md` | `informe_aed.md`, `codigo/exploratorio_<ID>.py` | `EDGE` / `NO_EDGE` |
 | `protocolo` | 03 | hipótesis + AED | `reglas.md` | `OK` |
 | `motor` | 04-07 | `reglas.md` | `codigo/estrategias/<carpeta>.py`, `reportes/<carpeta>/`, `informe_motor.md` | `OK` |
 | `validador` | cierre + 08 | todo lo anterior | `informe_validacion.md`, `checklist_deploy.md` | `APROBADA` / `RECHAZADA` |
+| `eficiencia` | transversal | estado, bitácora, entregables | `eficiencia.md` (notas para el siguiente agente) | `FLUIDO` / `AVISO` / `BLOQUEADO` |
+
+`eficiencia` no está en el grafo: corre solo después de cada fase de agente (se apaga con
+`--sin-eficiencia`) o a petición con `python -m harness.run eficiencia <ID>`. No mueve la fase, no toca
+entregables, no decide criterio.
 
 Los mismos ficheros sirven para dos cosas: el harness los usa como system prompt, y desde
 Claude Code se invocan como subagentes (`@investigador`, etc.) para trabajo interactivo.
@@ -32,6 +37,11 @@ Monte Carlo, stress); `report.py` escribe `reportes/<carpeta>/RESUMEN.md`. Una e
 `codigo/estrategias/<ID>_<nombre>.py` con `senal(df, **params)` (≤30 líneas) y un dict `PLAN`.
 `codigo/validar.py <ID> <datos>` lo corre todo. **No se escribe un motor por estrategia.**
 
+## Origen
+Fusión (2026-09-16) de tres sesiones en vivo del 2026-09-15: el laboratorio `quant_lab`
+(motor, docs, Kaufman y Raschke → 001-004), el repo de agentes `CUEVA` (agentes, harness, dashboard,
+pruebas → 005-007) y el agente de eficiencia. Este repo es la única copia viva.
+
 ## Cómo se usa
 ```
 .venv\Scripts\activate
@@ -42,6 +52,8 @@ python -m harness.run nueva 002 nombre                 # carpeta + plantilla de 
 python -m harness.run run 002                          # corre hasta la siguiente puerta
 python -m harness.run ok 002 | no 002                  # cierras la puerta
 python -m harness.run status
+python -m harness.run eficiencia 002                 # revisión a petición
+streamlit run harness/dashboard.py
 ```
 
 ## Dónde va cada cosa
@@ -52,7 +64,8 @@ python -m harness.run status
 | Exploratorios | `codigo/exploratorio_<ID>.py` |
 | Salidas numéricas | `reportes/<ID>_<nombre>/` (los `*_placebo/` no se versionan) |
 | Datos de mercado (no se versionan) | `data/` |
-| Protocolo y plantillas | `docs/` |
+| Protocolo y plantillas | `docs/` · el proceso del laboratorio en `docs/laboratorio/` |
+| Registro de todas las pruebas | `estrategias/REGISTRO.md` (también las que fallan) |
 | Motor | `codigo/quantlab/` (cambios con test en `tests/`) |
 
 **La raíz no recibe ficheros nuevos.**

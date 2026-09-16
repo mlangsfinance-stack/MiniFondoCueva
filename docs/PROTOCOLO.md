@@ -25,6 +25,10 @@ Si una estrategia no llega, se archiva o Mariel cambia el criterio editando este
 - **OOS se mira una sola vez.** Si el motor vuelve tras un rechazo, no re-optimiza sobre OOS.
 - Costes realistas siempre: spread + comisión + slippage por activo, definidos en `reglas.md`.
 
+> Origen de estos números: los fijó por defecto la sesión que creó el repo (2026-09-15), como
+> umbrales estadísticos de mínimo de muestra y robustez habituales; no vienen de Kaufman ni de
+> Raschke ni los dictó Mariel. Son suyos para cambiarlos. Cada cambio se anota en `estrategias/REGISTRO.md`.
+
 ### Paso 04 — Backtest IS/OOS
 - Profit factor OOS **≥ 1.3**
 - Trades OOS **≥ 30**
