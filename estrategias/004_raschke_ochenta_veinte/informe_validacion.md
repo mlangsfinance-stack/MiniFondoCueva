@@ -1,13 +1,13 @@
 # E004 — ochenta_veinte (80-20 de Street Smarts, ambas direcciones, NDX diario)
 
-- **Hipótesis origen:** H004 (`hipotesis/H004_ochenta_veinte.md`)
+- **Hipótesis origen:** H004 (`estrategias/004_raschke_ochenta_veinte/hipotesis.md`)
 - **Familia de edge:** reversión a corto plazo
 - **Estado:** `x_descartadas/` — muerta en **prototipo IS** (PF 0.74, t=−3.8) y confirmada en
   **Fase 1 (IS/OOS)** de la validación; además falla F2, F3 y F5. El lado corto ya había muerto
   en tendencia (exceso con el signo contrario).
 - **Señal:** `quantlab.senales_raschke.ochenta_veinte` · parámetros fijados:
   `{pct: 0.2, hold: 1, atr_mult_rango: 1.0}` · config `{stop_atr: 1.5, max_barras: 1}`
-- **RESUMEN de validación:** `reportes/ndx_ochenta_veinte/RESUMEN.md` (2026-09-15, **DESCARTADA**)
+- **RESUMEN de validación:** `reportes/004_raschke_ochenta_veinte/RESUMEN.md` (2026-09-15, **DESCARTADA**)
 
 ## 1. Especificación operable
 | Campo | Valor |

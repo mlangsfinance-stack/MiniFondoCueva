@@ -1,0 +1,14 @@
+{
+  // Al abrir esta carpeta, VS Code ofrece instalar esto.
+  //
+  // pablodelucca.pixel-agents (Pixel Agents, MIT) dibuja cada sesión de Claude Code como un
+  // personaje en una oficina de pixel art: camina, se sienta y refleja si está escribiendo,
+  // leyendo ficheros o esperando tu permiso. Los subagentes salen como personajes aparte, así que
+  // se ve a investigador, protocolo, motor, validador, eficiencia y mariel trabajando por separado.
+  //
+  // Es opcional y es de un tercero, no de Anthropic ni de Trade It Simple. El repo funciona igual
+  // sin ella: no hace falta configurar nada aquí para que el motor o el harness corran.
+  "recommendations": [
+    "pablodelucca.pixel-agents"
+  ]
+}

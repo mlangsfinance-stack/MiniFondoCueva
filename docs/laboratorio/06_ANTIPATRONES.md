@@ -6,7 +6,7 @@ Cada uno tiene su antídoto en el proceso. Si aparece uno nuevo, se añade aquí
 |---|---|---|
 | **Look-ahead** | Un indicador usa el cierre de hoy para decidir hoy; un máximo "de n barras" incluye la actual; datos ajustados con información futura | Señal al cierre, ejecución en apertura siguiente; `maximo_previo`; test `sin_lookahead` |
 | **Sesgo de supervivencia** | Universo de acciones = las que existen hoy | Universo histórico con delistings; si no hay, decir explícitamente que el resultado es optimista |
-| **Minería de datos** | Probar 200 variantes y presentar la que pasó | `REGISTRO.md` con todas; p-valor exigido ≈ 0.05/N; tres variantes fallidas = hipótesis muerta |
+| **Minería de datos** | Probar 200 variantes y presentar la que pasó | `estrategias/REGISTRO.md` con todas; p-valor exigido ≈ 0.05/N; tres variantes fallidas = hipótesis muerta |
 | **OOS reutilizado** | "Solo lo miré para ver si iba bien" y luego cambiar algo | El OOS se mira una vez; tocar la regla = hipótesis nueva desde prototipo |
 | **Pico de parámetros** | PF 2.1 en n=14 y 1.1 en n=13 y n=15 | Fase 3: meseta 3×3, caída < 30 % |
 | **Un trade lo es todo** | PF 1.6 que pasa a 0.95 sin el mejor trade | `pf_sin_mejor` en Fase 1 |

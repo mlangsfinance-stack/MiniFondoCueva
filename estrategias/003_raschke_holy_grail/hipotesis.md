@@ -5,7 +5,7 @@
   (ADX(14) > 30 y subiendo, retroceso a la EMA20, entrada al superar el alto de la barra del
   retroceso, stop bajo el mínimo del retroceso, objetivo el máximo previo).
 - **Familia de edge:** continuación
-- **Estado:** descartada (validación, Fase 1; tendencia y prototipo ya débiles) — ver `estrategias/x_descartadas/E001_holy_grail.md`
+- **Estado:** descartada (validación, Fase 1; tendencia y prototipo ya débiles) — ver `estrategias/003_raschke_holy_grail/`
 - **Tests acumulados sobre esta hipótesis:** 3 (1 placebo sintético que no cuenta como evidencia,
   1 tendencia IS NDX, 1 validación 5 fases NDX)
 
@@ -87,6 +87,6 @@ original (SP500 + NDX + DAX).
 ## Prototipo y validación (2026-09-15)
 Prototipo IS (adx_min 30, ema_n 20, hold 5, stop 2 ATR, 2 pb/lado): n=64, PF 1.40, exp 0.103 R,
 t=1.09, 60 % años positivos → no pasa la puerta (n < 100, t < 2).
-Validación `scripts/04_validar_ndx.py holy_grail --rapido` → **DESCARTADA**. PF OOS 1.05 (Norgate,
+Validación `codigo/scripts/04_validar_ndx.py holy_grail --rapido` → **DESCARTADA**. PF OOS 1.05 (Norgate,
 13 trades) y 0.56 (Darwinex, 23 trades); fallan F1, F2 (eficiencia WF 0.37), F3 (vecino 1.18) y F5
-(peor tercio 0.79). Acta completa en `reportes/ndx_holy_grail/RESUMEN.md`.
+(peor tercio 0.79). Acta completa en `reportes/003_raschke_holy_grail/RESUMEN.md`.

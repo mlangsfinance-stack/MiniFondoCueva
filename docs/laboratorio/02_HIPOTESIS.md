@@ -70,11 +70,11 @@ tendencies.test_permutacion(df, evento, h=5)   # p-valor contra n eventos al aza
 - El exceso esperado es ≥ 3× el coste de ida y vuelta del activo.
 
 **Lo que NO se hace aquí:** cambiar el evento hasta que salga. Cada variante del evento es un
-test nuevo en `REGISTRO.md`. Tres variantes fallidas → la hipótesis se descarta, no se refina.
+test nuevo en `estrategias/REGISTRO.md`. Tres variantes fallidas → la hipótesis se descarta, no se refina.
 
 ## 5. Registro y corrección por múltiples tests
 
-`hipotesis/REGISTRO.md` tiene una fila por test. Con N tests registrados, el p-valor exigido para
+`estrategias/REGISTRO.md` tiene una fila por test. Con N tests registrados, el p-valor exigido para
 creer un resultado es aproximadamente 0.05 / N (Bonferroni, conservador) — con 20 tests, 0.0025.
 No hace falta ser exacto: hace falta **saber cuántas cosas se han probado** y desconfiar más
 cuanto más se ha buscado. El registro también evita repetir tests ya muertos con otro nombre.

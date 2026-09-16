@@ -1,6 +1,6 @@
 # 007 · oro_nasdaq — Hipótesis
 
-> Paso 01. Lo rellena Mariel. Sin esto el investigador no arranca.
+> Paso 01. Lo rellenas tú. Sin esto el investigador no arranca.
 
 ## Activo(s) y timeframe
 <!-- p. ej. XAUUSD y NAS100, velas 1H, sesión NY -->

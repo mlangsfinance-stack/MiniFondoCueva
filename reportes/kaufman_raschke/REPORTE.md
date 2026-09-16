@@ -2,7 +2,7 @@
 
 Setup común: NDX diario Norgate (1985-01-31 → 2026-07-02), IS < 2016-01-01, OOS ≥ 2016-01-01, coste 2 pb por lado, riesgo 1 % del equity por trade, stop ATR según cada plan. Parámetros por defecto de cada señal, sin optimizar. Métricas de cada tramo calculadas con su propio capital inicial (100 k).
 
-Veredictos oficiales (5 fases, `reportes/ndx_*/RESUMEN.md`): **todas DESCARTADAS**. `kama_tendencia` solo tenía validación sintética; aquí se corre en NDX por primera vez y **no** ha pasado por las 5 fases.
+Veredictos oficiales (5 fases, `reportes/<ID>_*/RESUMEN.md`): **todas DESCARTADAS**. `kama_tendencia` solo tenía validación sintética; aquí se corre en NDX por primera vez y **no** ha pasado por las 5 fases.
 
 ![equity](equity.png)
 

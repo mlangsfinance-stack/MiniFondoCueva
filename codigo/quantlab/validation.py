@@ -31,6 +31,11 @@ class Criterios:
     trades_oos_min: int = 30
     maxdd_oos_max: float = 0.20
     pf_sin_mejor_min: float = 1.0
+    # Concentración (TIS): PF quitando las 5 mejores operaciones. Si la estrategia se vuelve
+    # plana al quitarlas, no hay edge: hay cinco eventos afortunados. Con el mínimo de 30
+    # trades OOS el test siempre es evaluable; por debajo devuelve nan y cuenta como fallo,
+    # pero ahí ya falla también `trades_oos`.
+    pf_sin_top5_min: float = 1.0
     # Fase 2
     wf_eficiencia_min: float = 0.5
     wf_ventanas_pos_min: float = 0.6
@@ -58,6 +63,7 @@ def _checks_oos(m: dict, crit: Criterios, sufijo: str = "") -> dict:
         f"trades_oos{sufijo}": (m["n_trades"], ">=", crit.trades_oos_min),
         f"maxdd_oos{sufijo}": (abs(m["max_dd"]), "<", crit.maxdd_oos_max),
         f"pf_sin_mejor_oos{sufijo}": (m["pf_sin_mejor"], ">", crit.pf_sin_mejor_min),
+        f"pf_sin_top5_oos{sufijo}": (m["pf_sin_top5"], ">", crit.pf_sin_top5_min),
     }
 
 

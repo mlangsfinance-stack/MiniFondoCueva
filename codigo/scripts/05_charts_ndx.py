@@ -2,7 +2,7 @@
 
 Por estrategia: equity Norgate (IS sombreado / OOS) + equity Darwinex, drawdown,
 meseta de parámetros (IS), walk-forward por ventana y cono bootstrap de los trades OOS.
-Arriba: las 4 curvas OOS (2016+) juntas. Uso: python scripts/05_charts_ndx.py
+Arriba: las 4 curvas OOS (2016+) juntas. Uso: python codigo/scripts/05_charts_ndx.py
 """
 import sys
 from pathlib import Path
@@ -23,6 +23,9 @@ PLANES = {**senales_kaufman.PLANES, **senales_raschke.PLANES}
 ORDEN = ["breakout_er", "mr_2dias", "holy_grail", "ochenta_veinte"]
 ETIQUETA = {"breakout_er": "Breakout + ER (Kaufman)", "mr_2dias": "Reversión 2 días (Kaufman)",
             "holy_grail": "Holy Grail (Raschke)", "ochenta_veinte": "80-20 (Raschke)"}
+# La fusión de 2026-09-16 renombró reportes/ndx_<senal>/ a reportes/<ID>_<nombre>/.
+CARPETA = {"breakout_er": "001_kaufman_breakout_er", "mr_2dias": "002_kaufman_mr_2dias",
+           "holy_grail": "003_raschke_holy_grail", "ochenta_veinte": "004_raschke_ochenta_veinte"}
 # paleta categórica en orden fijo (dataviz): azul, naranja, aqua, amarillo
 CAT = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 INK, MUTED, GRID, SURF = "#0b0b0b", "#898781", "#e1e0d9", "#fcfcfb"
@@ -52,7 +55,7 @@ def fig_estrategia(nombre, plan, color):
     eq_n, _ = curva(norgate, plan)
     eq_d, _ = curva(darwinex, plan)
     dd = (1 + eq_n) / (1 + eq_n).cummax() - 1
-    carpeta = RAIZ / "reportes" / f"ndx_{nombre}"
+    carpeta = RAIZ / "reportes" / CARPETA[nombre]
     meseta = pd.read_csv(carpeta / "meseta.csv", index_col=0)
     wf = pd.read_csv(carpeta / "walk_forward.csv")
     trades_oos = pd.read_csv(carpeta / "trades_oos.csv")
@@ -135,7 +138,7 @@ if __name__ == "__main__":
               ".nota{font-size:13px;color:#52514e;max-width:900px}</style></head><body>",
               "<h1>NDX — validación de 4 estrategias: charts y curvas</h1>",
               "<p class='nota'>IS = Norgate &lt; 2016 (zona gris) · OOS = 2016+ en Norgate y Darwinex · costes 2 pb/lado · riesgo 1 % por trade, stop ATR. "
-              "Las 4 están <b>descartadas</b>; el acta numérica está en <code>reportes/ndx_*/RESUMEN.md</code>.</p>",
+              "Las 4 están <b>descartadas</b>; el acta numérica está en <code>reportes/&lt;ID&gt;_*/RESUMEN.md</code>.</p>",
               fig_resumen().to_html(full_html=False, include_plotlyjs=True)]
     for k, nombre in enumerate(ORDEN):
         partes.append(f"<h2>{ETIQUETA[nombre]}</h2>")

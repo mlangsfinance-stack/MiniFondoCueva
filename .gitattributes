@@ -1,0 +1,13 @@
+# Normalizar texto, pero respetar lo que cada lanzador necesita para arrancar.
+* text=auto
+
+*.bat  text eol=crlf
+*.sh   text eol=lf
+*.py   text eol=lf
+*.md   text eol=lf
+
+# Binarios y salidas grandes: sin tocar y fuera del diff.
+*.png  binary
+*.parquet binary
+reportes/ndx_charts.html -diff linguist-generated
+reportes/**/*.csv        -diff

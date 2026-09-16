@@ -8,7 +8,7 @@ Base de trabajo para trading sistemático con un proceso que junta tres escuelas
 | **Perry Kaufman** | Robustez antes que rendimiento. Pocos parámetros, mesetas y no picos, adaptación al ruido (Efficiency Ratio / KAMA), probar en varios mercados y regímenes, entender por qué pierde un sistema. |
 | **Linda Raschke** | Primero observar: *tendencias* del mercado medidas con estadística simple antes de escribir reglas. Playbook de setups con disparo-stop-salida definidos antes de entrar. Proceso diario, diario de operaciones, riesgo primero. |
 
-La síntesis y los principios están en [docs/00_FILOSOFIA.md](docs/00_FILOSOFIA.md).
+La síntesis y los principios están en [00_FILOSOFIA.md](00_FILOSOFIA.md).
 
 ## El camino 0 → 100
 
@@ -17,51 +17,55 @@ La síntesis y los principios están en [docs/00_FILOSOFIA.md](docs/00_FILOSOFIA
         idea          falsable        ¿existe?        ¿se opera?      5 fases          sizing, cartera     paper/forward     monitor
 ```
 
-Cada tramo tiene **una entrada, una salida y una puerta** (criterio numérico para pasar). Nada avanza sin cruzar su puerta; lo que no la cruza va a `x_descartadas/` con el motivo escrito. El detalle: [docs/01_PROCESO_0_A_100.md](docs/01_PROCESO_0_A_100.md).
+Cada tramo tiene **una entrada, una salida y una puerta** (criterio numérico para pasar). Nada avanza sin cruzar su puerta; lo que no la cruza se marca como descartada en su `estado.json` con el motivo escrito. El detalle: [01_PROCESO_0_A_100.md](01_PROCESO_0_A_100.md).
 
 | Tramo | Doc | Herramienta | Salida |
 |---|---|---|---|
-| 0–25 Idea → Hipótesis | [02_HIPOTESIS.md](docs/02_HIPOTESIS.md) | `hipotesis/_plantilla.md` | `hipotesis/Hxxx_nombre.md` + fila en `REGISTRO.md` |
-| 25–40 Tendencia | [02_HIPOTESIS.md §4](docs/02_HIPOTESIS.md) | `scripts/01_tendencia.py` · `quantlab.tendencies` | tabla de evento, p-valor |
-| 40–55 Prototipo | [03_VALIDACION.md §1](docs/03_VALIDACION.md) | `scripts/02_prototipo.py` · `quantlab.senales` | señal ≤30 líneas, métricas con costes |
-| 55–75 Validación | [03_VALIDACION.md](docs/03_VALIDACION.md) | `scripts/03_validar.py` · `quantlab.validation` | `reportes/<nombre>/RESUMEN.md` |
-| 75–100 Estrategia → Live | [04_DE_EDGE_A_ESTRATEGIA.md](docs/04_DE_EDGE_A_ESTRATEGIA.md) | `estrategias/_plantilla.md` | ficha en `estrategias/<estado>/` |
+| 0–25 Idea → Hipótesis | [02_HIPOTESIS.md](02_HIPOTESIS.md) | `docs/laboratorio/PLANTILLA_HIPOTESIS_laboratorio.md` | `estrategias/<ID>_<nombre>/hipotesis.md` + fila en `estrategias/REGISTRO.md` |
+| 25–40 Tendencia | [02_HIPOTESIS.md §4](02_HIPOTESIS.md) | `codigo/scripts/01_tendencia.py` · `quantlab.tendencies` | tabla de evento, p-valor |
+| 40–55 Prototipo | [03_VALIDACION.md §1](03_VALIDACION.md) | `codigo/scripts/02_prototipo.py` · `quantlab.senales` | señal ≤30 líneas, métricas con costes |
+| 55–75 Validación | [03_VALIDACION.md](03_VALIDACION.md) | `codigo/scripts/03_validar.py` · `quantlab.validation` | `reportes/<nombre>/RESUMEN.md` |
+| 75–100 Estrategia → Live | [04_DE_EDGE_A_ESTRATEGIA.md](04_DE_EDGE_A_ESTRATEGIA.md) | `docs/laboratorio/PLANTILLA_ESTRATEGIA_laboratorio.md` | ficha en `estrategias/<ID>_<nombre>/` |
 
 ## Estructura
 
+> El laboratorio nació como repo aparte (`quant_lab`) y en la fusión de 2026-09-16 pasó a colgar
+> del MINI FONDO. Lo que antes era `src/` es ahora `codigo/`, `scripts/` es `codigo/scripts/`, y
+> las fichas sueltas de `hipotesis/` y `estrategias/<estado>/` se unificaron en una carpeta por
+> estrategia. Donde vive cada cosa hoy:
+
 ```
-quant_lab/
-├── README.md                  este mapa
-├── CLAUDE.md                  reglas de sesión (dónde va cada cosa, qué no se hace)
-├── docs/                      el proceso, escrito
-│   ├── 00_FILOSOFIA.md        las tres escuelas y los 10 principios
-│   ├── 01_PROCESO_0_A_100.md  tramos, puertas y entregables
-│   ├── 02_HIPOTESIS.md        cómo se formula y se registra una hipótesis; test de tendencia
-│   ├── 03_VALIDACION.md       protocolo de 5 fases con criterios
-│   ├── 04_DE_EDGE_A_ESTRATEGIA.md  sizing, cartera, ejecución, incubación, monitor, retirada
-│   ├── 05_METRICAS.md         definición única de cada métrica
-│   └── 06_ANTIPATRONES.md     cómo se engaña uno mismo, y el checklist para no hacerlo
-├── hipotesis/                 una ficha por hipótesis + REGISTRO.md (todo test cuenta)
-├── estrategias/               una ficha por estrategia; la carpeta ES el estado
-│   ├── 0_idea/ 1_tendencia/ 2_prototipo/ 3_validacion/ 4_incubacion/ 5_live/ x_descartadas/
-│   └── _plantilla.md
-├── src/quantlab/              el código (un motor, señales de ≤30 líneas, validación, informe)
-├── scripts/                   01_tendencia · 02_prototipo · 03_validar
-├── reportes/<nombre>/RESUMEN.md   ≤40 líneas por validación; es lo único que se relee
-├── data/                      OHLC (no se versiona)
-└── tests/                     tests de humo + test de placebo
+docs/laboratorio/           el proceso, escrito (estos ficheros)
+├── 00_FILOSOFIA.md         las tres escuelas y los 10 principios
+├── 01_PROCESO_0_A_100.md   tramos, puertas y entregables
+├── 02_HIPOTESIS.md         cómo se formula y se registra una hipótesis; test de tendencia
+├── 03_VALIDACION.md        protocolo de 5 fases con criterios
+├── 04_DE_EDGE_A_ESTRATEGIA.md  sizing, cartera, ejecución, incubación, monitor, retirada
+├── 05_METRICAS.md          definición única de cada métrica
+├── 06_ANTIPATRONES.md      cómo se engaña uno mismo, y el checklist para no hacerlo
+└── PLANTILLA_HIPOTESIS_laboratorio.md · PLANTILLA_ESTRATEGIA_laboratorio.md
+
+estrategias/<ID>_<nombre>/  una carpeta por estrategia: hipótesis, informes, estado.json, bitácora
+estrategias/REGISTRO.md     todo test cuenta · REGISTRO_laboratorio.md: las 17 corridas del lab
+codigo/quantlab/            el motor (señales ≤30 líneas, validación, informe)
+codigo/estrategias/         la señal canónica de cada estrategia: 001-004
+codigo/scripts/             01_tendencia · 02_prototipo · 03_validar · 04_validar_ndx · 05_charts_ndx
+codigo/app/aed_ndx.py       el AED interactivo (Streamlit)
+reportes/<carpeta>/RESUMEN.md   ≤40 líneas por validación; es lo único que se relee
+data/                       OHLC (no se versiona)
+tests/                      humo · placebo · coherencia entre las dos copias de las señales
 ```
 
 ## Arranque
 
 ```bash
 pip install -r requirements.txt
-python -m pytest -q                              # 11 tests, <2 s
-python scripts/01_tendencia.py  [datos.csv]      # ¿existe la tendencia?
-python scripts/02_prototipo.py  holy_grail [datos.csv]
-python scripts/03_validar.py    holy_grail [datos.csv] [--rapido]
-python scripts/04_validar_ndx.py breakout_er --rapido   # NDX: IS Norgate <2016, OOS en ambas series
-streamlit run app/aed_ndx.py
+python -m pytest -q                              # 26 tests, <2 s
+python codigo/scripts/01_tendencia.py  [datos.csv]      # ¿existe la tendencia?
+python codigo/scripts/02_prototipo.py  holy_grail [datos.csv]
+python codigo/scripts/03_validar.py    holy_grail [datos.csv] [--rapido]
+python codigo/scripts/04_validar_ndx.py breakout_er --rapido   # NDX: IS Norgate <2016, OOS en ambas series
+streamlit run codigo/app/aed_ndx.py
 ```
 
 Sin fichero de datos los scripts usan una serie sintética (`data.sintetico`). Sirve para
@@ -72,7 +76,7 @@ Formato de datos: CSV o parquet con columna de fecha y `open, high, low, close[,
 
 ## Estado — NDX, test inicial (2026-09-15)
 
-IS = Norgate < 2016 · OOS = 2016+ en Norgate **y** Darwinex · 2 pb/lado · riesgo 1 %. Acta completa: `reportes/ndx_*/RESUMEN.md`; registro de los 16 tests en `hipotesis/REGISTRO.md`.
+IS = Norgate < 2016 · OOS = 2016+ en Norgate **y** Darwinex · 2 pb/lado · riesgo 1 %. Acta completa: `reportes/<ID>_*/RESUMEN.md`; registro de las 17 corridas en `estrategias/REGISTRO_laboratorio.md`.
 
 | Estrategia | Escuela | Dir. | Tendencia IS | Proto IS (PF · n · t) | PF OOS Norgate / Darwinex | Muere en | Estado |
 |---|---|---|---|---|---|---|---|
@@ -85,7 +89,7 @@ IS = Norgate < 2016 · OOS = 2016+ en Norgate **y** Darwinex · 2 pb/lado · rie
 anteriores a ~2000 (índice cash sin open real). Afecta a cualquier regla que use el open (80-20,
 gaps). Para esas reglas: usar 2000+ o la serie Darwinex.
 
-**AED interactivo:** `streamlit run app/aed_ndx.py` — Datos · Régimen (ADX/ER por año) · Tendencias
+**AED interactivo:** `streamlit run codigo/app/aed_ndx.py` (necesita `requirements-extra.txt`) — Datos · Régimen (ADX/ER por año) · Tendencias
 (4 eventos con semáforo de la puerta) · Resultados (RESUMEN, meseta, walk-forward, equity OOS).
 Por defecto muestra solo IS; el OOS va tras un checkbox con aviso.
 
@@ -101,7 +105,7 @@ Por defecto muestra solo IS; el OOS va tras un checkbox con aviso.
 
 ## Reglas de la casa (resumen; el detalle está en CLAUDE.md y docs/)
 
-1. **Nada se cree sin test, y todo test se registra** — también los que fallan (`hipotesis/REGISTRO.md`).
+1. **Nada se cree sin test, y todo test se registra** — también los que fallan (`estrategias/REGISTRO.md`).
 2. **Una señal = una función ≤ 30 líneas, ≤ 4 parámetros.** Si necesita más, son dos hipótesis.
 3. **El OOS se mira una vez.** Si se toca dos veces, ya es IS.
 4. **Costes desde el prototipo.** Un edge que muere con costes ×2 no es un edge.

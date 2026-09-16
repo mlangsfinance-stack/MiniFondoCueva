@@ -6,18 +6,30 @@ fases. Tú pones la hipótesis y el criterio; ellos ponen el trabajo. Es el mét
 (Trade It Simple)** en 8 pasos, empaquetado para que lo corras en tu ordenador con Claude Code.
 
 Incluye un ejemplo completo: la ruptura de canal con filtro de ruido de **Perry Kaufman** sobre
-el Nasdaq, llevada de la hipótesis al veredicto. Spoiler: **se rechaza**, con un profit factor
-OOS de 5.7. Si quieres entender por qué eso es lo correcto, este repo es para ti.
+el Nasdaq, llevada de la hipótesis al veredicto. **Se rechaza**, con un profit factor OOS de 5.7.
+El repo existe para explicar por qué ese rechazo es la decisión correcta.
+
+> **¿No programas?** Empieza por **[EMPIEZA_AQUI.md](EMPIEZA_AQUI.md)**: va por niveles y el
+> primero no instala nada. En Windows, doble clic en `EMPEZAR.bat` y listo.
+>
+> Esto **no es asesoramiento financiero**. Lee [AVISO.md](AVISO.md).
 
 ## Qué hay dentro
 
 | Pieza | Qué hace |
 |---|---|
+| `EMPIEZA_AQUI.md` | La guía sin jerga, por niveles. El nivel 0 no instala nada. Empieza aquí si no programas. |
+| `EMPEZAR.bat` · `empezar.sh` | Doble clic (Windows) o `bash empezar.sh` (Mac/Linux): prepara todo y corre el placebo. |
+| `VALIDAR.bat` | Doble clic: pregunta qué estrategia y qué CSV de `data/`, y corre las 5 fases. Sin teclear rutas. |
+| `reportes/ndx_charts.html` | Las curvas de las 4 estrategias en una página. Se abre con doble clic, sin instalar nada. |
 | `.claude/agents/investigador.md` | Paso 02. Análisis exploratorio: ¿hay edge estructural o es ruido? |
 | `.claude/agents/protocolo.md` | Paso 03. Convierte la hipótesis en reglas blanco o negro. |
 | `.claude/agents/motor.md` | Pasos 04-07. Implementa, backtest IS/OOS, optimiza por meseta, robustez, sizing. |
 | `.claude/agents/validador.md` | Cierre. Rehace los números, no se fía del motor. APROBADA o RECHAZADA. |
 | `.claude/agents/eficiencia.md` | Transversal. Vigila a los otros cuatro: bloqueos, trabajo repetido, coste. Deja notas al siguiente. |
+| `.claude/agents/mariel.md` | La mentora del método. Revisa hipótesis, busca huecos, traduce informes. Solo lee. |
+| `.claude/skills/tis-*/` | Los 6 skills del método TIS, ya cableados. `tis-estilo` gobierna a los otros cinco. |
+| `.vscode/extensions.json` | Recomienda Pixel Agents: ver a los agentes trabajar como personajes de pixel art. |
 | `harness/` | Encadena los agentes y se para en las dos puertas que solo cierra una persona. `dashboard.py`: panel Streamlit. |
 | `codigo/quantlab/` | El motor: ejecución realista, costes, métricas y las 5 fases de validación. |
 | `codigo/validar.py` | Valida cualquier estrategia del repo sobre tus datos con un comando. |
@@ -39,13 +51,19 @@ y vuelve a intentarlo; como mucho tres veces. El OOS se mira una sola vez.
 
 ## Arranque en 5 minutos
 
+Atajo: **`EMPEZAR.bat`** (Windows) o **`bash empezar.sh`** (Mac/Linux) hacen todo lo de abajo
+solos. A mano:
+
 ```
-git clone <este repo> && cd mini_fondo
+git clone https://github.com/mlangsfinance-stack/MiniFondoCueva && cd MiniFondoCueva
 python -m venv .venv && .venv\Scripts\activate        # Windows; en Mac/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-python -m pytest -q                                   # 11 tests, < 2 s: el motor funciona
+pip install -r requirements.txt                       # el motor: numpy, pandas, pyarrow, pytest
+python -m pytest -q                                   # 26 tests, < 2 s: el motor funciona
 python codigo/validar.py 001 --sintetico --rapido     # placebo: sobre ruido la regla NO debe pasar
 ```
+
+Los paneles (Streamlit, Plotly) y los agentes van aparte, porque pesan y no hacen falta para
+validar: `pip install -r requirements-extra.txt`.
 
 Para el ejemplo con datos reales necesitas velas diarias del NDX (`fecha, open, high, low, close`)
 en `data/` — no se incluyen por licencia. Después:
@@ -53,6 +71,8 @@ en `data/` — no se incluyen por licencia. Después:
 ```
 python codigo/validar.py 001 data/NDX_D1.csv --corte 2016-01-01
 ```
+
+Las cuatro estrategias con acta (`001`-`004`) se validan igual, cambiando el ID.
 
 Para correr los agentes hace falta [Claude Code](https://claude.com/claude-code) con sesión iniciada:
 
@@ -83,8 +103,8 @@ al perder el mínimo de 20 días, stop 3×ATR. Parámetros de Kaufman, sin optim
 
 Pasa la meseta, el walk-forward, Monte Carlo, costes ×2 y sin los dos mejores años. **Falla un
 criterio: 24 trades OOS son menos de 30.** Y un solo criterio fallido es RECHAZADA. Un PF de 5.7 con
-24 trades en la década más alcista del Nasdaq no es evidencia; es una década alcista. El AED ya lo
-había avisado (permutación p = 0.28: el exceso sobre la base es deriva del índice).
+24 trades en la década más alcista del Nasdaq mide la década, no la regla. El AED ya lo había
+avisado (permutación p = 0.28: el exceso sobre la base es deriva del índice).
 
 Lo que **no** se hace: acortar el canal para fabricar trades ni bajar el umbral a 20. Lo que sí:
 la misma regla sobre más índices, como hipótesis nueva. Está escrito en
@@ -116,18 +136,23 @@ fracaso del método: es el método. Un umbral que solo rechaza lo que tú quiere
 ## Estructura
 
 ```
+EMPIEZA_AQUI.md     la guía por niveles (para quien no programa) · AVISO.md · LICENSE (MIT)
+EMPEZAR.bat         puesta en marcha con doble clic · empezar.sh para Mac/Linux
+VALIDAR.bat         validar una estrategia sobre tus datos, guiado por menú
 .claude/agents/     los 4 agentes + eficiencia (system prompt del harness y subagentes de Claude Code)
 harness/            run.py (CLI) · grafo.py (fases y veredictos) · estado.py · dashboard.py
 docs/               PROTOCOLO.md · PLANTILLA_HIPOTESIS.md · laboratorio/ (el proceso 0→100)
 codigo/quantlab/    motor de backtest, métricas, validación, informe
-codigo/estrategias/ una señal por estrategia (≤30 líneas + PLAN)
+codigo/estrategias/ una señal por estrategia (≤30 líneas + PLAN): 001-004
 codigo/validar.py   las 5 fases sobre tus datos
 codigo/scripts/     tendencia · prototipo · validar · charts (laboratorio)
 codigo/app/         AED interactivo del NDX (Streamlit)
 estrategias/<ID>/   hipótesis, informes, reglas, estado.json, bitácora · REGISTRO.md
 reportes/<ID>/      RESUMEN.md, meseta.csv, walk_forward.csv, trades_oos.csv
+reportes/ndx_charts.html  las curvas de las 4, autocontenido (doble clic)
 data/               tus velas (no se versionan)
 tests/              humo + placebo
+requirements.txt    el motor · requirements-extra.txt: paneles y agentes (opcional)
 ```
 
 ---

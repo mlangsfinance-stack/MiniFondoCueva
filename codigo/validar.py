@@ -33,6 +33,7 @@ def cargar_plan(id_: str):
 
 
 def main():
+    sys.stdout.reconfigure(encoding="utf-8")  # consola Windows
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("id")
     p.add_argument("datos", nargs="?")
@@ -58,8 +59,13 @@ def main():
     cfg = backtest.Config(coste_pct=a.coste, riesgo_pct=a.riesgo, **plan.get("config", {}))
     r = validation.validar(df, plan["fn"], plan["params"], plan["grid"], plan["meseta"], cfg=cfg,
                            corte=corte, oos_extra=oos_extra, n_sim=1000 if a.rapido else 5000)
+    # Las actas que vienen en reportes/<ID>_<nombre>/ son las del ejemplo y no se pisan nunca:
+    # se hicieron con series de Norgate y Darwinex que no se redistribuyen, así que quien las
+    # borre no puede recuperarlas. Cada corrida va a su propia carpeta.
     if a.sintetico:
-        carpeta += "_placebo"  # no pisa la validación real
+        carpeta += "_placebo"
+    else:
+        carpeta += "__" + Path(a.datos).stem
     ruta = report.guardar(carpeta, r, RAIZ / "reportes")
     print(ruta.read_text(encoding="utf-8"))
     print(f"-> {ruta}")

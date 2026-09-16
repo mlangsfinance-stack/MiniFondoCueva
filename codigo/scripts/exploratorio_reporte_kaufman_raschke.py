@@ -1,6 +1,6 @@
 """Reporte visual de los backtests de Kaufman y Raschke sobre NDX: métricas, curvas de equity,
 drawdown y heatmaps de meseta. No optimiza nada: reproduce cada señal con sus parámetros por
-defecto y el mismo setup que scripts/04_validar_ndx.py (Norgate, IS < 2016, OOS >= 2016, 2 pb/lado).
+defecto y el mismo setup que codigo/scripts/04_validar_ndx.py (Norgate, IS < 2016, OOS >= 2016, 2 pb/lado).
 
 Uso:  python scripts/exploratorio_reporte_kaufman_raschke.py
 Escribe reportes/kaufman_raschke/REPORTE.md + PNGs.
@@ -155,7 +155,7 @@ lineas = ["# Backtests Kaufman y Raschke sobre NDX — reporte visual", "",
           f"Setup común: NDX diario Norgate ({df.index[0].date()} → {df.index[-1].date()}), IS < 2016-01-01, OOS ≥ 2016-01-01, "
           "coste 2 pb por lado, riesgo 1 % del equity por trade, stop ATR según cada plan. Parámetros por defecto de cada señal, "
           "sin optimizar. Métricas de cada tramo calculadas con su propio capital inicial (100 k).", "",
-          "Veredictos oficiales (5 fases, `reportes/ndx_*/RESUMEN.md`): **todas DESCARTADAS**. `kama_tendencia` solo tenía "
+          "Veredictos oficiales (5 fases, `reportes/<ID>_*/RESUMEN.md`): **todas DESCARTADAS**. `kama_tendencia` solo tenía "
           "validación sintética; aquí se corre en NDX por primera vez y **no** ha pasado por las 5 fases.", "",
           "![equity](equity.png)", "", "![drawdown](drawdown.png)", "", "![heatmaps](heatmaps.png)", "", "![pnl](pnl_anual_oos.png)", ""]
 for escuela in ("Kaufman", "Raschke"):

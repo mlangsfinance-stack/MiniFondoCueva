@@ -1,11 +1,13 @@
 """Etapa 55-75: validación completa (5 fases) y RESUMEN.md.
 
-Uso:  python scripts/03_validar.py <senal> [ruta_datos] [--rapido]
+Uso:  python codigo/scripts/03_validar.py <senal> [ruta_datos] [--rapido]
 Escribe reportes/<senal>/RESUMEN.md (+ meseta.csv, walk_forward.csv, trades_oos.csv).
 """
 import itertools
 import sys
 from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")  # consola Windows
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "codigo"))
 

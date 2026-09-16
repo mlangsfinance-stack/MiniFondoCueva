@@ -1,7 +1,7 @@
 """Etapa 25-40: test de tendencia. Sin reglas, sin stops, sin optimizar.
 
 Pregunta: tras el evento, ¿el mercado se comporta distinto de lo normal?
-Uso:  python scripts/01_tendencia.py [ruta_csv_o_parquet]
+Uso:  python codigo/scripts/01_tendencia.py [ruta_csv_o_parquet]
 Sin ruta usa datos sintéticos (placebo: no debería salir nada).
 """
 import sys
