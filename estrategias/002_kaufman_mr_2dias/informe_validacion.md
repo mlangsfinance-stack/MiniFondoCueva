@@ -1,12 +1,12 @@
 # E003 — mr_2dias: reversión de 2 cierres con filtro SMA200 (NDX, ambos lados)
 
-- **Hipótesis origen:** H003 (`hipotesis/H003_mr_2dias.md`)
+- **Hipótesis origen:** H003 (`estrategias/002_kaufman_mr_2dias/hipotesis.md`)
 - **Familia de edge:** reversión de corto plazo + filtro de régimen (tendencia de fondo)
 - **Estado:** `x_descartadas/` — muerta en **prototipo IS** (PF 1.05, exp 0.01 R, t 0.67) y confirmada
   en validación (Fase 1 Darwinex, Fase 3 meseta, Fase 5 stress). Tendencia débil (largo p 0.07; corto |t| 0.2).
 - **Señal:** `quantlab.senales_kaufman.mr_2dias` · parámetros fijados: `{sma_n: 200, hold: 2}` ·
   config `stop_atr=2.0`
-- **RESUMEN de validación:** `reportes/ndx_mr_2dias/RESUMEN.md` (2026-09-15, DESCARTADA)
+- **RESUMEN de validación:** `reportes/002_kaufman_mr_2dias/RESUMEN.md` (2026-09-15, DESCARTADA)
 
 ## Motivo del descarte (acta)
 | Fase | Check | Valor | Umbral |

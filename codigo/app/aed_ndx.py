@@ -198,7 +198,12 @@ def formatear(df: pd.DataFrame, fmt: dict[str, str]) -> pd.DataFrame:
 
 def listar_reportes(raiz: Path = RAIZ) -> list[Path]:
     d = raiz / "reportes"
-    return sorted(p for p in d.glob("ndx_*") if p.is_dir()) if d.exists() else []
+    # Convención-agnóstico: vale cualquier carpeta con acta, se llame ndx_* (laboratorio)
+    # o <ID>_<nombre> (repo). Los placebo no se listan.
+    if not d.exists():
+        return []
+    return sorted(p for p in d.iterdir()
+                  if p.is_dir() and not p.name.endswith("_placebo") and (p / "RESUMEN.md").exists())
 
 
 # ----------------------------------------------------------------------------
@@ -424,13 +429,13 @@ def main() -> None:
                              unsafe_allow_html=True)
             (st.success if pasa else st.warning)(
                 "Cruza la puerta del tramo Tendencia: pasa a prototipo." if pasa
-                else "No cruza la puerta. Registrar el test en hipotesis/REGISTRO.md con el motivo.")
+                else "No cruza la puerta. Registrar el test en estrategias/REGISTRO.md con el motivo.")
 
     # -- 4. Resultados --------------------------------------------------------
     with tab_res:
         carpetas = listar_reportes()
         if not carpetas:
-            st.info("Aún no hay validaciones (se esperan carpetas `reportes/ndx_*/`).")
+            st.info("Aún no hay validaciones (se espera una carpeta con `RESUMEN.md` en `reportes/`).")
         else:
             carpeta = st.selectbox("Validación", carpetas, format_func=lambda p: p.name)
             resumen = carpeta / "RESUMEN.md"

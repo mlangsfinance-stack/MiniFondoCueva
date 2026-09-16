@@ -101,3 +101,27 @@ def test_resumen_md_se_escribe(df, tmp_path):
     ruta = report.guardar("prueba", r, tmp_path)
     texto = ruta.read_text(encoding="utf-8")
     assert "Veredicto" in texto and texto.count("\n") <= 40
+
+
+# --- concentración: quitar las 5 mejores operaciones (tis-validacion §2) ------------
+def test_pf_sin_top_quita_las_mejores():
+    from quantlab.metrics import pf_sin_top, profit_factor
+    # 10 perdedoras de -1 y 5 ganadoras enormes: el PF completo es alto y sin el top5 es 0.
+    pnl = pd.Series([-1.0] * 10 + [100.0] * 5)
+    assert profit_factor(pnl) > 10
+    assert pf_sin_top(pnl, 5) == 0.0
+
+
+def test_pf_sin_top_no_evaluable_con_muestra_corta():
+    from quantlab.metrics import pf_sin_top
+    # 8 operaciones: quitar 5 deja 3, que no dice nada. Debe ser nan, no 0.
+    assert np.isnan(pf_sin_top(pd.Series([1.0, -1.0] * 4), 5))
+
+
+def test_pf_sin_top5_en_las_metricas():
+    from quantlab import data, backtest as bt
+    from quantlab.metrics import metricas
+    from quantlab.senales_kaufman import breakout_er
+    df = data.sintetico(n=2000, autocorr=0.1)
+    res = bt.backtest(df, breakout_er(df), bt.Config())
+    assert "pf_sin_top5" in metricas(res)

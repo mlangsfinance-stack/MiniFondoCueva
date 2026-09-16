@@ -39,7 +39,7 @@ Coste de ida y vuelta del activo: __ %. Exceso esperado: __ %. Ratio: __.
 ---
 
 ## Resultado del test de tendencia
-(pegar la tabla de `scripts/01_tendencia.py`, fecha, datos usados, seed si sintético)
+(pegar la tabla de `codigo/scripts/01_tendencia.py`, fecha, datos usados, seed si sintético)
 
 ## Decisión
 Pasa a prototipo / descartada en tramo __ por __. Qué se aprendió.

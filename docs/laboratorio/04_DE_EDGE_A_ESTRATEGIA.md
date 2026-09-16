@@ -1,7 +1,7 @@
 # 04 — De edge validado a estrategia operable (tramos 75–100)
 
 Un edge validado todavía no se puede operar. Falta decidir cuánto, con qué, junto a qué, cómo
-se ejecuta y cuándo se apaga. Eso es la **estrategia**; se escribe en `estrategias/_plantilla.md`.
+se ejecuta y cuándo se apaga. Eso es la **estrategia**; se escribe en `docs/laboratorio/PLANTILLA_ESTRATEGIA_laboratorio.md`.
 
 ## 1. Especificación completa (75–85)
 

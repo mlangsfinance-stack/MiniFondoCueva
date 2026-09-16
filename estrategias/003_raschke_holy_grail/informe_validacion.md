@@ -1,12 +1,12 @@
 # E001 — holy_grail (Holy Grail de Raschke, solo largos, NDX diario)
 
-- **Hipótesis origen:** H001 (`hipotesis/H001_holy_grail.md`)
+- **Hipótesis origen:** H001 (`estrategias/003_raschke_holy_grail/hipotesis.md`)
 - **Familia de edge:** continuación
 - **Estado:** `x_descartadas/` — muerta en **Fase 1 (IS/OOS)**; además falla F2, F3 y F5. Ya llegaba
   marcada como "tendencia débil" (n=71, p=0.21) y sin pasar la puerta de prototipo (n=64, t=1.09).
 - **Señal:** `quantlab.senales_raschke.holy_grail` · parámetros fijados: `{adx_min: 30, ema_n: 20, hold: 5}`
   · config `{stop_atr: 2.0, max_barras: 5}`
-- **RESUMEN de validación:** `reportes/ndx_holy_grail/RESUMEN.md` (2026-09-15, **DESCARTADA**)
+- **RESUMEN de validación:** `reportes/003_raschke_holy_grail/RESUMEN.md` (2026-09-15, **DESCARTADA**)
 
 ## 1. Especificación operable
 | Campo | Valor |

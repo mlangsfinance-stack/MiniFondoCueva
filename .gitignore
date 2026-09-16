@@ -4,5 +4,9 @@ __pycache__/
 .pytest_cache/
 data/*
 !data/README.md
-reportes/*_placebo/
 .claude/settings.local.json
+
+# Salidas de validación: las actas de ejemplo (reportes/<ID>_<nombre>/) SÍ se versionan.
+# Lo que no, son las corridas de quien use el repo.
+reportes/*_placebo/
+reportes/*__*/

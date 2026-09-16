@@ -4,7 +4,7 @@
 
 La regla más simple que captura la tendencia confirmada. Con costes y stop desde el minuto uno.
 
-**Forma de una señal** (`src/quantlab/senales.py`):
+**Forma de una señal** (`codigo/quantlab/senales.py`):
 - Una función `senal(df, **params) -> pd.Series` con valores {-1, 0, 1} = posición deseada al
   cierre de cada barra. El motor la ejecuta en la apertura siguiente.
 - ≤ 30 líneas, ≤ 4 parámetros, sin estado oculto (nada de variables globales, nada de "recordar" trades).
@@ -26,7 +26,7 @@ lo normal es que la tendencia era débil: volver atrás, no afinar.
 
 ## 2. Las 5 fases (tramo 55–75)
 
-Se ejecutan todas, en orden, con una sola orden (`scripts/03_validar.py`). Los umbrales viven en
+Se ejecutan todas, en orden, con una sola orden (`codigo/scripts/03_validar.py`). Los umbrales viven en
 `validation.Criterios`; son defaults calibrables **para el laboratorio entero**, no para una
 estrategia. Cambiar uno se documenta en este fichero con fecha y motivo.
 

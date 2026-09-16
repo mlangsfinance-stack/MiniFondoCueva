@@ -3,6 +3,11 @@ PLANES[nombre] = dict(fn, params, grid, meseta, config={...opcional para backtes
 
 Fuentes: Kaufman, *Trading Systems and Methods* (5ª ed.) cap. 5 (N-day breakout), cap. 15
 (patrones de días consecutivos), cap. 17 (Efficiency Ratio); *Smarter Trading* (ruido de mercado).
+
+NOTA: la copia **canónica** de estas señales vive en `codigo/estrategias/<ID>_<nombre>.py`, que es
+la que usa `codigo/validar.py` y la que escriben los agentes. Este módulo lo mantienen los scripts
+del laboratorio (`codigo/scripts/04_validar_ndx.py`, `05_charts_ndx.py`). Las dos copias tienen que
+dar la misma señal: lo vigila `tests/test_estrategias_coinciden.py`.
 """
 from __future__ import annotations
 

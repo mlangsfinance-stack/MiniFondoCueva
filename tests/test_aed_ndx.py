@@ -11,6 +11,10 @@ sys.path.insert(0, str(RAIZ / "codigo"))
 sys.path.insert(0, str(RAIZ / "codigo" / "app"))
 
 from quantlab import data  # noqa: E402
+
+# aed_ndx importa streamlit a nivel de módulo para la UI. streamlit está en
+# requirements-extra.txt, así que sin él este fichero se salta en vez de romper la colección.
+pytest.importorskip("streamlit", reason="instala requirements-extra.txt para probar la app del AED")
 import aed_ndx  # noqa: E402
 
 

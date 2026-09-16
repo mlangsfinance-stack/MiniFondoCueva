@@ -2,7 +2,7 @@
 con stop y costes, en TODA la muestra (todavía no se separa IS/OOS: aquí
 solo se comprueba que la mecánica funciona y que el edge sobrevive a costes).
 
-Uso:  python scripts/02_prototipo.py <senal> [ruta_datos]
+Uso:  python codigo/scripts/02_prototipo.py <senal> [ruta_datos]
       senal en: kama_tendencia | holy_grail | ruptura_donchian
 """
 import sys

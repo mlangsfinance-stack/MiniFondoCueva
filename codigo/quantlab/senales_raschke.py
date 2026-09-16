@@ -2,7 +2,13 @@
 PLANES[nombre] = dict(fn, params, grid, meseta, config={...opcional para backtest.Config...})
 
 Fuente: Raschke & Connors, *Street Smarts* (1995). Adaptadas a barras diarias; las
-simplificaciones están documentadas en hipotesis/H001_holy_grail.md y H004_ochenta_veinte.md.
+simplificaciones están documentadas en estrategias/003_raschke_holy_grail/hipotesis.md y
+estrategias/004_raschke_ochenta_veinte/hipotesis.md.
+
+NOTA: la copia **canónica** de estas señales vive en `codigo/estrategias/<ID>_<nombre>.py`, que es
+la que usa `codigo/validar.py` y la que escriben los agentes. Este módulo lo mantienen los scripts
+del laboratorio (`codigo/scripts/04_validar_ndx.py`, `05_charts_ndx.py`). Las dos copias tienen que
+dar la misma señal: lo vigila `tests/test_estrategias_coinciden.py`.
 """
 from __future__ import annotations
 

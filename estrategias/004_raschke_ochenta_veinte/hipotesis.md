@@ -7,7 +7,7 @@
   ser mayor que la media, que la entrada es tras un nuevo extremo en el Día 2 y que es un trade
   de un día).
 - **Familia de edge:** reversión (corto plazo)
-- **Estado:** descartada (prototipo IS, confirmado en validación Fase 1) — ver `estrategias/x_descartadas/E004_ochenta_veinte.md`
+- **Estado:** descartada (prototipo IS, confirmado en validación Fase 1) — ver `estrategias/004_raschke_ochenta_veinte/`
 - **Tests acumulados sobre esta hipótesis:** 3 (tendencia IS NDX largo, tendencia IS NDX corto,
   validación 5 fases NDX)
 
@@ -110,7 +110,7 @@ sobre-reacción bajista), no tras días de compra (momentum del índice).
 Prototipo IS (pct 0.2, hold 1, rango ≥ 1.0 ATR(10), stop 1.5 ATR, 2 pb/lado; entrada apertura Día 2,
 salida apertura Día 3): n=1153, PF 0.74, exp −0.044 R, t=−3.77 → muere. Por lado: corto PF 0.57
 (t=−5.0), largo PF 0.95. Con open real (2000–2015): corto 1.00, largo 1.12.
-Validación `scripts/04_validar_ndx.py ochenta_veinte --rapido` → **DESCARTADA**. PF OOS 1.15 (Norgate,
+Validación `codigo/scripts/04_validar_ndx.py ochenta_veinte --rapido` → **DESCARTADA**. PF OOS 1.15 (Norgate,
 276 trades) y 1.16 (Darwinex, 361 trades); fallan F1, F2 (eficiencia 0.0), F3 (vecino 0.65) y F5
-(sin 2 mejores años 0.77, peor tercio 0.55). Acta en `reportes/ndx_ochenta_veinte/RESUMEN.md`.
+(sin 2 mejores años 0.77, peor tercio 0.55). Acta en `reportes/004_raschke_ochenta_veinte/RESUMEN.md`.
 Siguiente: H004.1 (solo largos, open real, salida al cierre de Día 2) como hipótesis nueva.

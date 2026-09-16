@@ -26,7 +26,8 @@ def resumen_md(nombre: str, r: dict) -> str:
     f1 = r["fases"]["1_is_oos"]
     cols = {"IS": f1["is"], "OOS": f1["oos"], **{f"OOS {k}": v for k, v in f1.get("oos_extra", {}).items()}}
     L += ["| métrica | " + " | ".join(cols) + " |", "|---|" + "---|" * len(cols)]
-    for k in ("n_trades", "profit_factor", "pf_sin_mejor", "cagr", "max_dd", "sharpe", "expectancia_R", "win_rate", "t_stat"):
+    for k in ("n_trades", "profit_factor", "pf_sin_mejor", "pf_sin_top5", "cagr", "max_dd", "sharpe",
+              "expectancia_R", "win_rate", "t_stat"):
         L.append(f"| {k} | " + " | ".join(_f(m[k]) for m in cols.values()) + " |")
     L += ["", "| fase | check | valor | umbral | ok |", "|---|---|---|---|---|"]
     for fase, d in r["fases"].items():

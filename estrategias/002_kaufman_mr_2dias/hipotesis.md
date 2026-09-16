@@ -112,7 +112,7 @@ CAGR 0.4 % · MaxDD −17.9 % · años positivos 17/31 (55 %). Largos 690 trades
 (−7.9 k). Puerta de prototipo: **no pasa** (PF, expectancia y t).
 H003.1 (informativo, solo largos, IS): n = 690 · PF 1.12 · exp 0.03 R · t = 1.26. Tampoco pasa.
 
-## Validación (2026-09-15, `reportes/ndx_mr_2dias/RESUMEN.md`, --rapido)
+## Validación (2026-09-15, `reportes/002_kaufman_mr_2dias/RESUMEN.md`, --rapido)
 **DESCARTADA.** Fallan: `pf_oos_darwinex` 1.23 < 1.3 · `meseta_min_vecino` 0.86 < 1.2 (IS) ·
 `stress_sin_2_mejores_anios_pf` 1.09 < 1.1 · `stress_peor_tercio_pf` 0.95 < 1.1.
 Pasan: PF OOS Norgate 1.35 (justo fuera de la frontera 1.25–1.35), 282 trades OOS, MaxDD OOS −8.9 %,

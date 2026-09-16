@@ -18,6 +18,19 @@ def profit_factor(pnl: pd.Series) -> float:
     return float(g / p) if p > 0 else (np.inf if g > 0 else 0.0)
 
 
+def pf_sin_top(pnl: pd.Series, k: int = 5) -> float:
+    """Profit factor quitando las ``k`` operaciones más rentables.
+
+    El test de concentración del método TIS. Con k=1 es `pf_sin_mejor`; el criterio de
+    validación usa k=5. Devuelve ``nan`` si no quedan al menos 5 operaciones después de
+    quitarlas: con esa muestra el número no significaría nada y un 0.0 se leería como
+    un fallo cuando en realidad es "no evaluable".
+    """
+    if len(pnl) - k < 5:
+        return float("nan")
+    return profit_factor(pnl.drop(pnl.nlargest(k).index))
+
+
 def metricas(res: Resultado) -> dict:
     t, eq, cfg = res.trades, res.equity, res.config
     n = len(t)
@@ -32,13 +45,15 @@ def metricas(res: Resultado) -> dict:
         "trades_anio": n / anios,
     }
     if n == 0:
-        out.update({"profit_factor": 0.0, "pf_sin_mejor": 0.0, "win_rate": 0.0, "expectancia_R": 0.0,
+        out.update({"profit_factor": 0.0, "pf_sin_mejor": 0.0, "pf_sin_top5": np.nan,
+                    "win_rate": 0.0, "expectancia_R": 0.0,
                     "payoff": np.nan, "t_stat": 0.0, "media_barras": 0.0, "pct_stop": 0.0, "mar": np.nan})
         return out
     pnl = t["pnl"]
     out.update({
         "profit_factor": profit_factor(pnl),
         "pf_sin_mejor": profit_factor(pnl.drop(pnl.idxmax())) if n > 1 else 0.0,
+        "pf_sin_top5": pf_sin_top(pnl, 5),
         "win_rate": float((pnl > 0).mean()),
         "expectancia_R": float(t["R"].mean()),
         "payoff": float(pnl[pnl > 0].mean() / -pnl[pnl < 0].mean()) if (pnl < 0).any() and (pnl > 0).any() else np.nan,

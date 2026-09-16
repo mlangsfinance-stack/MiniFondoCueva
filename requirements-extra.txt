@@ -1,0 +1,6 @@
+# Opcional. Solo si quieres los paneles visuales y los agentes.
+#   pip install -r requirements-extra.txt
+streamlit>=1.30      # harness/dashboard.py y codigo/app/aed_ndx.py
+plotly>=5            # codigo/scripts/05_charts_ndx.py (el HTML de charts)
+matplotlib>=3.7      # codigo/scripts/exploratorio_reporte_kaufman_raschke.py
+claude-agent-sdk>=0.2  # harness/grafo.py: los 4 agentes encadenados
