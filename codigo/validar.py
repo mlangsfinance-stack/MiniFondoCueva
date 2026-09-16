@@ -8,7 +8,8 @@ Uso:
   añade --rapido para Monte Carlo de 1 000 barajados en vez de 5 000
 
 La estrategia se busca en codigo/estrategias/<ID>_*.py y debe exponer `PLAN`.
-Escribe reportes/<carpeta>/RESUMEN.md (+ meseta.csv, walk_forward.csv, trades_oos.csv).
+Escribe reportes/<carpeta>/RESUMEN.md (+ meseta.csv, walk_forward.csv y trades_oos.csv,
+que no se versiona porque lleva precios del proveedor de datos).
 Sin datos, `--sintetico` usa una serie AR(1) con autocorr 0: si una regla "pasa" ahí, algo está mal.
 """
 import argparse

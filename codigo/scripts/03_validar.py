@@ -1,7 +1,8 @@
 """Etapa 55-75: validación completa (5 fases) y RESUMEN.md.
 
 Uso:  python codigo/scripts/03_validar.py <senal> [ruta_datos] [--rapido]
-Escribe reportes/<senal>/RESUMEN.md (+ meseta.csv, walk_forward.csv, trades_oos.csv).
+Escribe reportes/<senal>/RESUMEN.md (+ meseta.csv, walk_forward.csv y trades_oos.csv,
+que no se versiona porque lleva precios del proveedor de datos).
 """
 import itertools
 import sys

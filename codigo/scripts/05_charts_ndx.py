@@ -58,8 +58,14 @@ def fig_estrategia(nombre, plan, color):
     carpeta = RAIZ / "reportes" / CARPETA[nombre]
     meseta = pd.read_csv(carpeta / "meseta.csv", index_col=0)
     wf = pd.read_csv(carpeta / "walk_forward.csv")
-    trades_oos = pd.read_csv(carpeta / "trades_oos.csv")
-    (p5, p50, p95), real = cono(trades_oos)
+    # trades_oos.csv no se versiona: lleva precios de entrada y salida del proveedor de datos.
+    # Lo regenera `codigo/validar.py` al correr sobre tus series. Sin él, el cono se omite.
+    f_trades = carpeta / "trades_oos.csv"
+    hay_cono = f_trades.exists()
+    if hay_cono:
+        (p5, p50, p95), real = cono(pd.read_csv(f_trades))
+    else:
+        print(f"  (sin {f_trades.name}: se omite el cono bootstrap de {nombre})")
 
     fig = make_subplots(
         rows=3, cols=3, row_heights=[0.45, 0.2, 0.35], vertical_spacing=0.09, horizontal_spacing=0.08,
@@ -92,6 +98,11 @@ def fig_estrategia(nombre, plan, color):
     fig.add_trace(go.Bar(x=[f"V{k + 1}" for k in wf["ventana"]], y=wf["cagr_oos"] * 100, marker_color=cols_wf,
                          showlegend=False, hovertemplate="CAGR OOS %{y:.2f} %<extra></extra>"), row=3, col=2)
     # 5) cono
+    if not hay_cono:
+        fig.update_layout(height=900, title=dict(text=f"{ETIQUETA[nombre]} — params {plan['params']}", x=0), **LAYOUT)
+        fig.update_xaxes(**EJE)
+        fig.update_yaxes(**EJE)
+        return fig
     idx = np.arange(1, len(real) + 1)
     fig.add_trace(go.Scatter(x=idx, y=p95 * 100, line=dict(width=0), showlegend=False, hoverinfo="skip"), row=3, col=3)
     fig.add_trace(go.Scatter(x=idx, y=p5 * 100, line=dict(width=0), fill="tonexty", fillcolor="rgba(42,120,214,0.15)",

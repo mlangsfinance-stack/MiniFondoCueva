@@ -135,6 +135,10 @@ y sus tests usan `pytest.importorskip`.
 5. Cada turno de agente termina con `VEREDICTO: <X>` en la última línea, o el harness lo deja parado.
 6. Los pasos verdes (hipótesis, criterio sobre el AED, sizing, deploy) no los decide ningún agente.
 7. No leer `trades_oos.csv` ni `meseta.csv` al contexto: leer solo `RESUMEN.md`.
+7b. **`trades_oos.csv` no se versiona nunca.** Lleva `precio_entrada` y `precio_salida`, o sea
+   precios del proveedor de datos, y este repo es público. Está en `.gitignore`; el motor lo sigue
+   escribiendo en local para quien corra sobre sus propias series. Lo que sí se versiona son las
+   salidas agregadas sin precios: `meseta.csv`, `walk_forward.csv`, `metricas.csv`.
 8. Sin push sin confirmación.
 9. **Escribe para alguien que no programa.** La puerta de entrada es `EMPIEZA_AQUI.md`; el `README.md`
    es la referencia técnica. Cualquier cosa nueva cabe en un nivel: mirar sin instalar, correr el

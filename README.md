@@ -148,7 +148,7 @@ codigo/validar.py   las 5 fases sobre tus datos
 codigo/scripts/     tendencia · prototipo · validar · charts (laboratorio)
 codigo/app/         AED interactivo del NDX (Streamlit)
 estrategias/<ID>/   hipótesis, informes, reglas, estado.json, bitácora · REGISTRO.md
-reportes/<ID>/      RESUMEN.md, meseta.csv, walk_forward.csv, trades_oos.csv
+reportes/<ID>/      RESUMEN.md, meseta.csv, walk_forward.csv (trades_oos.csv es local: lleva precios)
 reportes/ndx_charts.html  las curvas de las 4, autocontenido (doble clic)
 data/               tus velas (no se versionan)
 tests/              humo + placebo

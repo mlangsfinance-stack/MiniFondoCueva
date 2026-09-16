@@ -10,3 +10,7 @@ data/*
 # Lo que no, son las corridas de quien use el repo.
 reportes/*_placebo/
 reportes/*__*/
+
+# Las listas de operaciones llevan precio de entrada y salida, o sea precios del
+# proveedor de datos. No se versionan nunca, ni las del ejemplo.
+trades_oos.csv
